@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container text-center">
+
+<p>
+  <strong>Name</strong>
+  <%= @film.name %>
+</p>
+
+<p>
+  
+<% @film.sections.map do | section | %>
+  
+<p>
+  <%= section.name %>
+  
+  <% section.people_riders.map do | rider | %>
+  	<%= rider.name %>
+  <% end  %>
+  
+  <% section.section_songs.map do | song | %>
+  	<%= song.name %>
+  <% end  %>
+</p>
+  
+<% end  %>
+
+</p>
+
+</div>
+
+
