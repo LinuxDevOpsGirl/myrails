@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
+    include Pagy::Backend
     require 'net/http'
     require 'json'
-
+    
 
     helper_method :current_user_session, :current_user, :get_thumbnail
 

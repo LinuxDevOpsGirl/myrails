@@ -1,0 +1,51 @@
+
+
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link <%= 'active' unless params[:active_tab] == 'years' %>" aria-controls="az" data-toggle="tab" href="#az" role="tab">
+      A - Z
+    </a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link <%= 'active' if params[:active_tab] == 'years' %>" aria-controls="years" data-toggle="tab" href="#years" role="tab">
+      Years
+    </a>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane <%= 'active' unless params[:active_tab] == 'years' %>" id="az">
+    <h2 class="mt-3 mb-2">A - Z</h2>
+    <div>
+      <% letter_options.each do |letter| %>
+        <% if params[:letter] == letter %>
+          <span class="current"><%= letter %></span>
+        <% else %>
+          <%= link_to letter, films_path(:letter => letter, :active_tab => 'az')%>
+        <% end %>
+      <% end %>
+    </div>
+    <table class="table">
+      
+      <% @films_az.each do |film| %>
+        <tr>
+          <td><%= film.name %></td>
+        </tr>
+      <% end %>
+    </table>
+    <%== pagy_nav_compact_bootstrap @pagy_az %>
+  </div>
+
+  <div class="tab-pane <%= 'active' if params[:active_tab] == 'years' %>" id="years">
+    <h2 class="mt-3 mb-2">Years</h2>
+    <table class="table">
+      
+      <% @films_year.each do |film| %>
+        <tr>
+          <td><%= film.name %></td>
+        </tr>
+      <% end %>
+    </table>
+    <%== pagy_nav_compact_bootstrap @pagy_years %>
+  </div>
+</div>

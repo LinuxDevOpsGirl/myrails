@@ -1,18 +1,13 @@
-<p>Home Page</p>
 
 <% if current_user %>
-    <li class="footertext"><a href="/favourites"><%= current_user.username %></a><%= current_user_session %></li>
-    <li class="footertext"><%= link_to "Logout", logout_path %></li>
+    <li><a href="/favourites"><%= current_user.username %></a><%= current_user_session %></li>
+    <li><%= link_to "Logout", logout_path %></li>
 <% else %>
-    <li class="footertext"><%= link_to "Login", login_path %></li>
+    <li><%= link_to "Login", login_path %></li>
+    <li><%= link_to "Register", new_user_path %></li>
 <% end %>
 
 <% if has_role? :admin %>
     admin
 <% end %>
 
-<ul>
-<% @films.each do |film| %>
-  <li><%= link_to film.name, film_path(film) %></li>
-<% end %>
-</ul>

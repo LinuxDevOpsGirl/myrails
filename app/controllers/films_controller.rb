@@ -5,7 +5,16 @@ class FilmsController < ApplicationController
 
   # GET /films
   def index
-    @films = Film.all
+    if params[:letter].blank?
+      @pagy_az, @films_az = pagy(Film.order(:name).where("draft = ?", 0), page_param: :page_az, params: { active_tab: 'az' })
+    elsif params[:letter] == '#'
+      @pagy_az, @films_az = pagy(Film.order(:name).where("name REGEXP ? and draft = ?",
+      "^[^a-z]", 0).order('name'), page_param: :page_az, params: { active_tab: 'az' })
+    else
+      @pagy_az, @films_az = pagy(Film.order(:name).where("name like ? and draft = ?",
+      "#{params[:letter]}%", 0).order('name'), page_param: :page_az, params: { active_tab: 'az' })
+    end
+    @pagy_years, @films_year = pagy(Film.order(:release_year), page_years: :page_nebulae, params: { active_tab: 'years' })
   end
   
   # GET /films/1

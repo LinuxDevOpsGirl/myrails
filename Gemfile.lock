@@ -135,6 +135,7 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.9.1)
       mini_portile2 (~> 2.4.0)
+    pagy (1.2.1)
     popper_js (1.14.5)
     public_suffix (3.0.3)
     puma (3.12.0)
@@ -252,6 +253,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   mini_magick (~> 4.8)
   mysql2 (>= 0.4.4, < 0.6.0)
+  pagy
   puma (~> 3.11)
   rails (~> 5.2.2)
   sass-rails (~> 5.0)
