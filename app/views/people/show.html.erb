@@ -1,0 +1,24 @@
+<%= @person.name %>
+
+<h4>Editor</h4>
+<ul>
+<% @person.editors.each do |person| %>
+    <li><%= person.film.name %></li>
+<% end %>
+</ul>
+
+<h4>Filmer</h4>
+<ul>
+<% @person.filmers.each do |person| %>
+    <li><%= person.film.name %></li>
+<% end %>
+</ul>
+
+<h4>Rider</h4>
+<ul>
+<% @person.sections.each do |section| %>
+    <% unless section.film.draft == true %>
+        <li><%= section.film.name  %><span><%= thumb_image_tag(get_thumbnail(section.url)) %></span></li>
+    <% end %>
+<% end %>
+</ul>

@@ -29,7 +29,7 @@
       
       <% @films_az.each do |film| %>
         <tr>
-          <td><%= film.name %></td>
+          <td><%= link_to film.name, film_path(film) %></td>
         </tr>
       <% end %>
     </table>
@@ -38,7 +38,12 @@
 
   <div class="tab-pane <%= 'active' if params[:active_tab] == 'years' %>" id="years">
     <h2 class="mt-3 mb-2">Years</h2>
+
+    <%= year_options %>
+
     <table class="table">
+
+    
       
       <% @films_year.each do |film| %>
         <tr>

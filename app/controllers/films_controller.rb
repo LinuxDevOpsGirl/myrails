@@ -14,7 +14,20 @@ class FilmsController < ApplicationController
       @pagy_az, @films_az = pagy(Film.order(:name).where("name like ? and draft = ?",
       "#{params[:letter]}%", 0).order('name'), page_param: :page_az, params: { active_tab: 'az' })
     end
-    @pagy_years, @films_year = pagy(Film.order(:release_year), page_years: :page_nebulae, params: { active_tab: 'years' })
+    
+    
+    if params[:type].blank?
+      @pagy_years, @films_year = pagy(Film.order(:release_year), page_years: :page_nebulae, params: { active_tab: 'years' })
+    elsif params[:type] == 'year'
+      if params[:start].blank? || params[:end].blank?
+        @pagy_years, @films_year = pagy(Film.order(:release_year).where("release_year IS NULL AND draft = 0"), page_years: :page_nebulae, params: { active_tab: 'years' })
+      else
+        @pagy_years, @films_year = pagy(Film.order(:release_year).where("release_year between " + params[:start] +
+                                   " and " + params[:end] + " and draft = 0"), page_years: :page_nebulae, params: { active_tab: 'years' })
+      end
+    end
+
+    
   end
   
   # GET /films/1

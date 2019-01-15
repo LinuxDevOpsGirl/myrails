@@ -1,0 +1,7 @@
+<%= @company.name %>
+
+<ul>
+<% @company.films.each do |film| %>
+    <li><%= link_to film.name, film_path(film) %></li>
+<% end %>
+</ul>

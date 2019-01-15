@@ -5,15 +5,9 @@ class UsersController < ApplicationController
     end
     
     def create
-        @user = User.new
-
-        @user.username = params[:user][:username]
-        @user.email = params[:user][:email]
-
-        puts @user
+        @user = User.new(user_params)
 
         if @user.save
-            puts "hello"
           UserMailer.activation_instructions(@user).deliver
           
           flash[:notice] = "Your account has been created. Please check your e-mail for your account activation instructions!"
@@ -38,4 +32,10 @@ class UsersController < ApplicationController
         render :action => 'edit'
       end
     end
+
+    private
+    def user_params
+      params.require(:user).permit(:username, :email, :password, :salt, :new, :create, :encrypted_password)
+    end
+
   end

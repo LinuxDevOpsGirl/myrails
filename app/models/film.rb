@@ -11,7 +11,6 @@ class Film < ApplicationRecord
   has_many :filmcompanies
   has_many :film_companies, through: :filmcompanies, source: :company
   
-  # not tested on rails 5
   def to_param
     "#{id}-#{name.gsub(/[^a-z0-9]+/i, '-')}"
   end

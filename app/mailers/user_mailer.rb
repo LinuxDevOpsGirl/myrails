@@ -2,7 +2,7 @@ class UserMailer < ActionMailer::Base
     default :from => "noreply@bmxmdb.com"
     
     def activation_instructions(user)
-       @account_activation_url = user.perishable_token
+      @account_activation_url = user.perishable_token
       mail(:to => user.email, :subject => "BMX Movie Database - Account Activation")
     end
     

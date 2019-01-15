@@ -35,17 +35,20 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.delivery_method = :postfix
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address         => 'smtp.gmail.com',
-    :port            => 587,
-    :domain          => 'bmxmdb.com',
-    :user_name       => 'nick@bmxmdb.com',
-    :password        => 'd1stre55',
-    :authentication  => "plain",
-    :enable_starttls_auto => true,
-    :tls => true
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'bmxmdb.com',
+    user_name:            'nick@bmxmdb.com',
+    password:             'fHM-m0S-8Uq-aCi',
+    authentication:       'plain',
+    enable_starttls_auto: true
+
   }
+
+  config.action_mailer.default_url_options = { :host => "localhost:3000"}
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

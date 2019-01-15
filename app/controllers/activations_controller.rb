@@ -13,10 +13,8 @@ class ActivationsController < ApplicationController
 
         if @user.activate!(params)
           
-          # set user as an author on user activation
-          role = Role.find(:first, :conditions => ["name = ?", "author"])
-          
-          @role_assign = Assignment.new(:user_id => @user.id, :role_id => role.id)
+          # hard coded role as 1, author
+          @role_assign = Assignment.new(:user_id => @user.id, :role_id => 1)
           @role_assign.save
           
           
