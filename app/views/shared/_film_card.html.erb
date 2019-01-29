@@ -1,0 +1,29 @@
+<div class="row justify-content-start">
+  <% film_card.each do |film| %>
+        <div class="col-md-4 d-flex">
+        <%= link_to(film) do %>
+          <div class="card mb-4">
+          <p>
+            <% if film.image.attached? %>
+              <%= image_tag film.image, :class => "card-img-top img-fluid" %>
+            <% else %>
+              <% if formats(film).include? "VHS" %>
+                <%= image_tag 'vhs_case.png' , :class => "card-img-top img-fluid" %>
+              <% else %>
+                <%= image_tag 'dvd_case.png' , :class => "card-img-top img-fluid" %>
+              <% end %>
+            <% end %>
+          </p>
+        <div class="card-body flex-fill">
+          <h5 class="card-title"><%= film.name %></h5>
+          <p class="card-text">
+          <span><%= film.release_year %></span>
+          <span><%= formats(film) %></span>
+          <span><%= film.country %></span>
+          </p>
+        </div>
+      </div>
+      <% end %>
+      </div>
+  <% end %>
+</div>

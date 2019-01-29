@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bmxmdb</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMX Movie Database</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +11,11 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <%= render 'layouts/navigation' %>
+    </header>
+    <main role="main">
+       <%= yield %>
+    </main>
   </body>
 </html>

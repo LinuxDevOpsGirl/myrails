@@ -1,24 +1,90 @@
-<%= @person.name %>
+<div class="container-fluid">
 
-<h4>Editor</h4>
-<ul>
-<% @person.editors.each do |person| %>
-    <li><%= person.film.name %></li>
-<% end %>
-</ul>
+<h2><%= @person.name %></h2>
 
-<h4>Filmer</h4>
-<ul>
-<% @person.filmers.each do |person| %>
-    <li><%= person.film.name %></li>
-<% end %>
-</ul>
 
-<h4>Rider</h4>
-<ul>
-<% @person.sections.each do |section| %>
-    <% unless section.film.draft == true %>
-        <li><%= section.film.name  %><span><%= thumb_image_tag(get_thumbnail(section.url)) %></span></li>
-    <% end %>
+
+<% unless @person.film_editors.empty? %>
+    <h4> as Editor</h4>
+    <%= render partial: "shared/film_mini_card", object: @person.film_editors %>
 <% end %>
-</ul>
+
+<% unless @person.film_filmers.empty? %>
+    <h4>as Filmer</h4>
+    <%= render partial: "shared/film_mini_card", object: @person.film_filmers %>
+<% end %>
+
+<h4>as Rider</h4>
+    <div class="row justify-content-start">
+    <% no_vid_array = [] %>
+<% @person.sections.includes(:film).order("films.release_year").each do |section| %>
+        
+           <% unless section.film.draft == true %>
+           <!-- DON'T FORGET WE WANT TO COLLECT SECTIONS WITHOUT VIDEO AT THE BOTTOM -->
+                <% if get_thumbnail(section.url) == "http://bmxmdb.com/images/film_preview.png" %>
+                    <% no_vid_array.append(section) %>
+                <% else %>
+                    <div class="col-md-6 d-flex">
+                    
+                        <div class="card mb-6">
+                            <div class="video-btn" data-toggle="modal" data-src="<%= get_autoplay_url(section.url) %>" data-target="#myModal" data-video-fullscreen="1">
+                                <%= thumb_image_tag(get_thumbnail(section.url)) %>
+                            </div>
+                            
+                        <div class="card-body flex-fill">
+                            <h5 class="card-title"><%= section.name %> from <%= section.film.name %></h5>
+                            <p class="card-text">
+                                <% section.film.film_companies.each do |company| %>
+                                    <%= company.name %>
+                                <% end %>
+                                    <ul>    
+                                    <% section.riders.each do |rider| %>
+                                        <li><%= rider.person.name %></li>
+                                    <% end %>
+                                    </ul>
+                                    <ul>
+                                    <% section.songs.each do |song| %>
+                                        <li><%= song.songlist.name %> - <%= song.songlist.artist %></li>
+                                    <% end %>
+                                    </ul>
+                            </p>
+                        </div>
+                    </div>
+                    </button>
+                </div> 
+                <% end %>
+            <% end %>
+         
+<% end %>
+</div>
+
+<p>Sections without video</p>
+<% no_vid_array.each do |novid| %>
+    <%= novid.name %> from <%= novid.film.name %>
+<% end %>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-body">
+
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>        
+        <!-- 16:9 aspect ratio -->
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="" id="video"  allowscriptaccess="always">></iframe>
+</div>
+        
+        
+      </div>
+
+    </div>
+  </div>
+</div> 
+
+</div>

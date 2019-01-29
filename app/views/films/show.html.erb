@@ -1,17 +1,59 @@
 <p id="notice"><%= notice %></p>
 
 <div class="container">
+    
+<div class="card" style="width: 18rem;">
+      <% if @film.image.attached? %>
+    <!-- @film.image.present? will always return true, use attached? to check presence -->
+      <p>
+        <%= image_tag @film.image, :class => "card-img-top" %>
+      </p>
+    <% end %>
+  <div class="card-body">
+    <h5 class="card-title"><%= @film.name %></h5>
+    <p class="card-text">
+    <span><%= @film.release_year %></span>
+    <span><%= formats(@film) %></span>
+    <span><%= @film.country %></span>
+    <ul>
+ <% @film.film_companies.each do |company| %>
+        <li><%= link_to company.name,  company %>
+        <% if company.company_logo.attached? %>
+          <span><%= image_tag(company.company_logo) %></span></li>
+        <% end %>
+ <% end %>
+</ul>
+    </p>
+  </div>
+</div>
 
-<p>
-  <strong>Name</strong>
-  <%= @film.name %>
-</p>
+
+<ul>
+ <% @film.film_companies.each do |company| %>
+        <li><%= link_to company.name,  company %>
+        <% if company.company_logo.attached? %>
+          <span><%= image_tag(company.company_logo) %></span></li>
+        <% end %>
+ <% end %>
+</ul>
+
+<p>Filmed by<p>
+<ul>
+<% @film.people_filmers.each do |filmer| %>
+        <li><%= link_to filmer.name,  filmer %></li>
+<% end %>
+</ul>
+
+<p>Edited By<p>
+<ul>
+<% @film.people_editors.each do |editor| %>
+        <li><%= link_to editor.name,  editor %></li>
+<% end %>
+</ul>
 
 <% if @film.image.attached? %>
 <!-- @film.image.present? will always return true, use attached? to check presence -->
   <p>
-    <strong>Image:</strong>
-    <br>
     <%= image_tag @film.image %>
   </p>
 <% end %>

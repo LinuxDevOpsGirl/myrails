@@ -1,7 +1,19 @@
-<%= @company.name %>
+<div class="container-fluid">
 
-<ul>
-<% @company.films.each do |film| %>
-    <li><%= link_to film.name, film_path(film) %></li>
+<h2><%= @company.name %></h2>
+
+<% if @company.company_logo.attached? %>
+  <p>
+    <%= image_tag @company.company_logo %>
+  </p>
 <% end %>
-</ul>
+
+
+<% @company.films.order("release_year").each_slice(3) do |films| %>
+  
+  <%= render partial: "shared/film_card", object: films %>
+
+<% end %>
+
+
+</div>

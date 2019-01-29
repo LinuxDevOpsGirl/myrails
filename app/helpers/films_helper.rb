@@ -12,4 +12,21 @@ module FilmsHelper
 	     link_to('2000-2009', :type => 'year', :start => 2000, :end => 2009, :active_tab => 'years') + 
 	     link_to('2010-', :type => 'year', :start => 2010, :end => 2100, :active_tab => 'years')
     end
+
+    def formats(film)
+        rtn = []
+        if film.format_vhs
+            rtn.push("VHS")
+        end
+        if film.format_dvd
+            rtn.push("DVD")
+        end
+        if film.format_web 
+            rtn.push("Web")
+        end
+        if film.format_blu
+            rtn.push("Blu Ray")
+        end
+        rtn.join(', ')
+    end
 end

@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
     require 'json'
     
 
-    helper_method :current_user_session, :current_user, :get_thumbnail
+    helper_method :current_user_session, :current_user, :get_thumbnail, :get_autoplay_url
 
   private
     def current_user_session
@@ -16,6 +16,26 @@ class ApplicationController < ActionController::Base
       return @current_user if defined?(@current_user)
       @current_user = current_user_session && current_user_session.user
     end
+
+    def get_autoplay_url(section_url)
+        if section_url.include? "http://player.vimeo.com/"
+            regexclip_id = Regexp.new(/player.vimeo.com\/video\/([0-9]*)/)
+            matchclip_iddata = regexclip_id.match(section_url)
+            video_id = matchclip_iddata[1]
+            rtn = "https://player.vimeo.com/video/#{video_id}"
+        elsif section_url.include? "www.youtube.com/embed"
+            regexclip_id = Regexp.new(/www.youtube.com\/embed\/([\w]*)/)
+            matchclip_iddata = regexclip_id.match(section_url)
+            video_id = matchclip_iddata[1]
+            rtn = "https://www.youtube.com/embed/#{video_id}"
+        elsif section_url.include? "www.youtube.com/v"
+            regexclip_id = Regexp.new(/www.youtube.com\/v\/([\w]*)/)
+            matchclip_iddata = regexclip_id.match(section_url)
+            video_id = matchclip_iddata[1]
+            rtn = "https://www.youtube.com/embed/#{video_id}"
+        end
+    end
+    
 
     # FIX make a regex caller method, bit lacking in DRY
     def get_thumbnail(section_url)
