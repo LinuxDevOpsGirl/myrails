@@ -19,57 +19,60 @@
 //= require popper
 //= require bootstrap-sprockets
 
-function loadIframeModal() {
 
+
+function carouselVid(url, active) {
+    var activeStr = '';
+    var autoplay = 0;
+    if (active) {
+        activeStr = 'active';
+        autoplay = 1;
+    }
+
+    return `<div class="carousel-item ${activeStr}">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" 
+                        src="${url}?rel=0&amp;showinfo=0&amp;modestbranding=1&amp;autoplay=${autoplay}" id="video"  
+                        allowscriptaccess="always" allowfullscreen>
+                    </iframe>
+                </div>
+            </div>'`
+
+};
+
+
+
+function loadIframeCarousel() {
     $(document).on('click', '.video-btn', function(e) {
-
-        var $videoSrc             = $(this).attr('data-src'),
-            $allowfullscreen      = $(this).attr('data-video-fullscreen');
-
-        $("#myModal iframe").attr({
-            'src'               : $videoSrc + "?rel=0&amp;showinfo=0&amp;modestbranding=1&amp;autoplay=1",
-            'allowfullscreen'   : $allowfullscreen
-            
+        var $clicked = $(this).attr('data-src');
+        $('.video-btn').each(function(i, item){
+            var $vid = $(item).attr('data-src');
+            if ($vid === $clicked) {
+                $("#sliderindicators > div.carousel-inner").append(carouselVid($(item).attr('data-src'), true));
+            } else {
+                $("#sliderindicators > div.carousel-inner").append(carouselVid($(item).attr('data-src'), false));
+            }
         });
 
         $('#myModal').on('hidden.bs.modal', function(){
-            $(this).find('iframe').html("");
-            $(this).find('iframe').attr("src", "");
+            $('#sliderindicators > div.carousel-inner').each(function(i, item){
+                $(item).html("");
+                $(item).find('iframe').attr("src", "");
+            })
         });
     });
-}
+};
+
+    
 
 $(document).ready(function(){
-
-    loadIframeModal();
-
-//     var $videoSrc;  
-// $('.video-btn').click(function() {
-//     $videoSrc = $(this).data( "src" );
-//     console.log("why no video?");
-//     console.log($videoSrc);
-// });
+    loadIframeCarousel();
 
 
-  
-  
-// // when the modal is opened autoplay it  
-// $('#myModal').on('shown.bs.modal', function (e) {
-    
-// // set the video src to autoplay and not to show related video. Youtube related video is like a box of chocolates... you never know what you're gonna get
-// $("#video").attr('src',$videoSrc + "?rel=0&amp;showinfo=0&amp;modestbranding=1&amp;autoplay=1" ); 
-// })
-  
-  
-// // stop playing the youtube video when I close the modal
-// $('#myModal').on('hide.bs.modal', function (e) {
-//     // a poor man's stop video
-//     $("#video").attr('src',$videoSrc); 
-// }) 
-    
-    
+    $('#sliderindicators').on('slide.bs.carousel', function () {
+        console.log("pause!!!???");
+      });
 
-
-    
+      
     
   });

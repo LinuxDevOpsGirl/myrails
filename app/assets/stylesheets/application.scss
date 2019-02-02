@@ -76,3 +76,19 @@ font-weight: normal;
 color:#fff;
 opacity:1;
 }
+
+.carousel .carousel-control-prev { visibility: hidden; }
+.carousel:hover .carousel-control-prev { visibility: visible; }
+
+a.carousel-control-prev {
+  max-height:21%; 
+  margin-top:21%;
+}
+
+.carousel .carousel-control-next { visibility: hidden; }
+.carousel:hover .carousel-control-next { visibility: visible; }
+
+a.carousel-control-next {
+  max-height:21%; 
+  margin-top:21%;
+}
