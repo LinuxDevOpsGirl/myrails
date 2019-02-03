@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<div class="container">
+<div class="container-fluid">
     
 <div class="card" style="width: 18rem;">
       <% if @film.image.attached? %>
@@ -58,29 +58,26 @@
   </p>
 <% end %>
 
-<p>
+
   
 <% @film.sections.map do | section | %>
   
-<p>
-  <%= section.name %>
+    <div class="row mb-2">
 
+      <div class="col-6">
+        <%= render partial: "shared/film_section", object: section %>
+      </div>
 
-  <%= thumb_image_tag(get_thumbnail(section.url)) %>
-
-  
-  <% section.people_riders.map do | rider | %>
-  	<%= rider.name %>
-  <% end  %>
-  
-  <% section.section_songs.map do | song | %>
-  	<%= song.name %>
-  <% end  %>
-</p>
+      <div class="col-6">
+        <%= render partial: "shared/section_info", object: section %>
+      </div>
+    </div>
   
 <% end  %>
 
-</p>
+<!-- Modal -->
+<%= render partial: "shared/modal_carousel", object: @film.sections %>
+<!-- modal -->
 
 </div>
 

@@ -1,0 +1,13 @@
+<h4><%= section_info.name %></h4>
+<div>
+    <ul>
+    <% section_info.people_riders.map do | rider | %>
+        <li><%= rider.name %></li>
+    <% end  %>
+    </ul>
+    <ul>
+    <% section_info.section_songs.map do | song | %>
+        <li><%= song.name %> - <%= song.artist %></li>
+    <% end  %>
+    </ul>
+</div>

@@ -2,8 +2,6 @@
 
 <h2><%= @person.name %></h2>
 
-
-
 <% unless @person.film_editors.empty? %>
     <h4> as Editor</h4>
     <%= render partial: "shared/film_mini_card", object: @person.film_editors %>
@@ -14,88 +12,14 @@
     <%= render partial: "shared/film_mini_card", object: @person.film_filmers %>
 <% end %>
 
+<!-- if person is in a film that's in draft, they'll show up, with 'as rider' -->
+<% unless @person.sections.empty? %>
 <h4>as Rider</h4>
-    <div class="row justify-content-start">
-    <% no_vid_array = [] %>
-<% @person.sections.includes(:film).order("films.release_year").each do |section| %>
-        
-           <% unless section.film.draft == true %>
-           <!-- DON'T FORGET WE WANT TO COLLECT SECTIONS WITHOUT VIDEO AT THE BOTTOM -->
-                <% if get_thumbnail(section.url) == "http://bmxmdb.com/images/film_preview.png" %>
-                    <% no_vid_array.append(section) %>
-                <% else %>
-                    <div class="col-md-6 d-flex">
-                    
-                        <div class="card mb-6">
-                            <div class="video-btn" data-toggle="modal" data-src="<%= get_autoplay_url(section.url) %>" data-target="#myModal" data-video-fullscreen="1">
-                                <%= thumb_image_tag(get_thumbnail(section.url)) %>
-                            </div>
-                            
-                        <div class="card-body flex-fill">
-                            <h5 class="card-title"><%= section.name %> from <%= section.film.name %></h5>
-                            <p class="card-text">
-                                <% section.film.film_companies.each do |company| %>
-                                    <%= company.name %>
-                                <% end %>
-                                    <ul>    
-                                    <% section.riders.each do |rider| %>
-                                        <li><%= rider.person.name %></li>
-                                    <% end %>
-                                    </ul>
-                                    <ul>
-                                    <% section.songs.each do |song| %>
-                                        <li><%= song.songlist.name %> - <%= song.songlist.artist %></li>
-                                    <% end %>
-                                    </ul>
-                            </p>
-                        </div>
-                    </div>
-                    </button>
-                </div> 
-                <% end %>
-            <% end %>
-         
+    <%= render partial: "shared/section_card", object: @person.sections %>
 <% end %>
-</div>
-
-<p>Sections without video</p>
-<% no_vid_array.each do |novid| %>
-    <%= novid.name %> from <%= novid.film.name %>
-<% end %>
-
-
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-
-      <div class="modal-body">
-
-       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>        
-        <!-- carousel -->
-            <div id="sliderindicators" class="carousel slide" data-ride="carousel" data-interval="false">
-                <div class="carousel-inner" role="listbox">
-                    
-                </div>
-                    <a class="carousel-control-prev" href="#sliderindicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#sliderindicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-            </div>
-        <!-- carousel -->
-      </div>
-
-    </div>
-  </div>
-</div> 
-
+<%= render partial: "shared/modal_carousel", object: @person.sections %>
 <!-- modal -->
 
 </div>

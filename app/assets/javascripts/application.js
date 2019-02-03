@@ -19,7 +19,7 @@
 //= require popper
 //= require bootstrap-sprockets
 
-
+var section_names = [];
 
 function carouselVid(url, active) {
     var activeStr = '';
@@ -41,25 +41,36 @@ function carouselVid(url, active) {
 };
 
 
-
 function loadIframeCarousel() {
     $(document).on('click', '.video-btn', function(e) {
         var $clicked = $(this).attr('data-src');
+        
+
         $('.video-btn').each(function(i, item){
+            section_names.push($(item).parent().find('.video-btn').attr('data-section-name'));
             var $vid = $(item).attr('data-src');
             if ($vid === $clicked) {
                 $("#sliderindicators > div.carousel-inner").append(carouselVid($(item).attr('data-src'), true));
+                $('#myModal > div > div > div.modal-footer > div').html(section_names[i]);
             } else {
                 $("#sliderindicators > div.carousel-inner").append(carouselVid($(item).attr('data-src'), false));
             }
         });
 
         $('#myModal').on('hidden.bs.modal', function(){
+            section_names = [];
             $('#sliderindicators > div.carousel-inner').each(function(i, item){
                 $(item).html("");
                 $(item).find('iframe').attr("src", "");
             })
         });
+
+        
+
+        $('#sliderindicators').on('slide.bs.carousel', function (e) {
+            $('#myModal > div > div > div.modal-footer > div').html(section_names[e.to]);
+          });
+
     });
 };
 
@@ -69,9 +80,11 @@ $(document).ready(function(){
     loadIframeCarousel();
 
 
-    $('#sliderindicators').on('slide.bs.carousel', function () {
-        console.log("pause!!!???");
-      });
+    $('#myModal').on('shown.bs.modal', function(){
+
+        console.log("all loaded?");
+        // $('#myModal > div > div > div.modal-footer > div').html('wazza');
+    });
 
       
     
