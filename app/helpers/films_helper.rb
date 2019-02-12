@@ -27,6 +27,6 @@ module FilmsHelper
         if film.format_blu
             rtn.push("Blu Ray")
         end
-        rtn.join(', ')
+        rtn.join(' | ')
     end
 end

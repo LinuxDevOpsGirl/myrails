@@ -20,8 +20,8 @@ gem 'bootstrap', '~> 4.2.1'
 gem 'jquery-rails'
 gem 'authlogic', '~> 4.4'
 gem 'declarative_authorization', github: 'Xymist/declarative_authorization', branch: 'allow_rails_5'
-
 gem 'pagy'
+gem 'lightbox-bootstrap-rails', '5.1.0.1'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

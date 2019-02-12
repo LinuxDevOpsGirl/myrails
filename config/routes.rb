@@ -12,7 +12,8 @@ Rails.application.routes.draw do
 
   resources :companies
   resources :people
-
+  resources :songlists
+  
   resources :user_sessions
   resources :users
 

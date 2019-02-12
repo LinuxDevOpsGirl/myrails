@@ -1,4 +1,9 @@
+@import url('http://fonts.googleapis.com/css?family=Alegreya+Sans+SC');
+$font-family-base: "Alegreya Sans SC";
+$font-size-base: 1.25rem;
 @import "bootstrap";
+@import "lightbox-bootstrap";
+
 
 // make all images responsive by default
 img {
@@ -127,3 +132,4 @@ a.carousel-control-next {
   /* adjust 'height' to position overlay content vertically */
   height: 40%;
 }
+

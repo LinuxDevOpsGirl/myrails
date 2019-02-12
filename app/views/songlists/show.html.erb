@@ -1,0 +1,16 @@
+<div class="container-fluid">
+
+<h2><%= @songlist.name %> - <%= @songlist.artist %></h2>
+
+<% sections = [] %>
+<% no_vid_array = [] %>
+
+<!-- check for existence of vid -->
+<%= render partial: "shared/section_card", object: @songlist.sections %>
+
+<!-- Modal -->
+<%= render partial: "shared/modal_carousel", object: sections %>
+<!-- modal -->
+
+
+</div>

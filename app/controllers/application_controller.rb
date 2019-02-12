@@ -79,6 +79,5 @@ class ApplicationController < ActionController::Base
         return thumbnail_url
     end
 
-    
 
 end

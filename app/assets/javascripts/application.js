@@ -18,6 +18,8 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
+//= require lightbox-bootstrap
+
 
 var section_names = [];
 
@@ -74,11 +76,16 @@ function loadIframeCarousel() {
     });
 };
 
-    
+function loadLightbox(){
+    $(document).on("click", '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+      });
+};
 
 $(document).ready(function(){
     loadIframeCarousel();
-
+    loadLightbox();
 
     $('#myModal').on('shown.bs.modal', function(){
 
@@ -86,6 +93,7 @@ $(document).ready(function(){
         // $('#myModal > div > div > div.modal-footer > div').html('wazza');
     });
 
+    
       
     
   });

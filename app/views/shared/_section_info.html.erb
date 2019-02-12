@@ -1,13 +1,13 @@
 <h4><%= section_info.name %></h4>
 <div>
-    <ul>
+    <ul class="list-unstyled">
     <% section_info.people_riders.map do | rider | %>
-        <li><%= rider.name %></li>
+        <li><%= link_to rider.name, rider %></li>
     <% end  %>
     </ul>
-    <ul>
+    <ul class="list-unstyled">
     <% section_info.section_songs.map do | song | %>
-        <li><%= song.name %> - <%= song.artist %></li>
+        <li><%= link_to (song.name + ' - ' +  song.artist), songlist_path(song.id) %></li>
     <% end  %>
     </ul>
 </div>

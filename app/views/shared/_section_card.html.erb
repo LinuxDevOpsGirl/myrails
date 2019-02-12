@@ -1,12 +1,12 @@
 <div class="row justify-content-start">
     <% no_vid_array = [] %>
-<% @person.sections.includes(:film).order("films.release_year").each do |section| %>
+<% section_card.includes(:film).order("films.release_year").each do |section| %>
         
            <% unless section.film.draft == true %>
                 <% if get_thumbnail(section.url) == "http://bmxmdb.com/images/film_preview.png" %>
                     <% no_vid_array.append(section) %>
                 <% else %>
-                    <div class="col-md-6 d-flex">
+                    <div class="col-md-6 d-flex mb-2">
                         <div class="card mb-6">
                             <div class="video-btn" data-toggle="modal" data-src="<%= get_autoplay_url(section.url) %>" 
                                 data-target="#myModal" data-video-fullscreen="1" data-section-name="<%= section.film.name %>&nbsp;(<%= section.name %>)">
@@ -35,8 +35,10 @@
          
 <% end %>
     </div>
+
+<% unless no_vid_array.count != 0 %>   
 <div class="row justify-content-start">
-    <div class="col-md-6 d-flex">           
+    <div class="col-md-6 d-flex mb-2">           
         <div class="card mb-6">      
             <div class="card-body mb-6">
                 <h5 class="card-title">Sections without video</h5>
@@ -51,4 +53,5 @@
         </div>
     </div> 
 </div>
+<% end %>
 

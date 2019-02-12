@@ -2,82 +2,82 @@
 
 <div class="container-fluid">
     
-<div class="card" style="width: 18rem;">
-      <% if @film.image.attached? %>
-    <!-- @film.image.present? will always return true, use attached? to check presence -->
-      <p>
-        <%= image_tag @film.image, :class => "card-img-top" %>
-      </p>
-    <% end %>
-  <div class="card-body">
-    <h5 class="card-title"><%= @film.name %></h5>
-    <p class="card-text">
-    <span><%= @film.release_year %></span>
-    <span><%= formats(@film) %></span>
-    <span><%= @film.country %></span>
-    <ul>
- <% @film.film_companies.each do |company| %>
-        <li><%= link_to company.name,  company %>
-        <% if company.company_logo.attached? %>
-          <span><%= image_tag(company.company_logo) %></span></li>
+    <div class="row">
+
+      <div class="col-sm-9 mb-2">
+
+          <div class="jumbotron">
+            <h1 class="display-4"><%= @film.name %><%= film_release(@film)%></h1>
+            <p class="lead"><%= film_information(@film) %></p>
+            <p><%= @film.notes %></p>
+            
+              <% @film.film_companies.each do |company| %>
+                      <% if company.company_logo.attached? %>
+                          <%= link_to image_tag(company.company_logo.variant(resize: '80x')), company %></li>
+                        <% else %>
+                          <%= link_to company.name, company %>
+                      <% end %>
+              <% end %>
+            
+          </div>
+        
+        
+        <div class="ml-2 pl-4"><%= "Editor".pluralize(@film.people_editors.count) %></div>
+        <ul class="list-unstyled ml-2 pl-4">
+        <% @film.people_editors.each do |editor| %>
+                <li><%= link_to editor.name,  editor %></li>
         <% end %>
- <% end %>
-</ul>
-    </p>
-  </div>
+        </ul>
+
+        <div class="ml-2 pl-4"><%= "Filmer".pluralize(@film.people_filmers.count) %></div>
+        <ul class="list-unstyled ml-2 pl-4">
+        <% @film.people_filmers.each do |filmer| %>
+                <li><%= link_to filmer.name,  filmer %></li>
+        <% end %>
+        </ul>
+
+        
+
+
+      </div>
+
+      <div class="col-sm-3 mb-2">
+        <% if @film.image.attached? %>
+          <%= link_to @film.image, data: { toggle: 'lightbox'} do
+                image_tag @film.image.variant(resize: '200x')      
+          end %>
+        <% end %>
+      </div>
+
+    </div>
+  
+  
+
+  
+
+
 </div>
 
 
-<ul>
- <% @film.film_companies.each do |company| %>
-        <li><%= link_to company.name,  company %>
-        <% if company.company_logo.attached? %>
-          <span><%= image_tag(company.company_logo) %></span></li>
-        <% end %>
- <% end %>
-</ul>
-
-<p>Filmed by<p>
-<ul>
-<% @film.people_filmers.each do |filmer| %>
-        <li><%= link_to filmer.name,  filmer %></li>
-<% end %>
-</ul>
-
-<p>Edited By<p>
-<ul>
-<% @film.people_editors.each do |editor| %>
-        <li><%= link_to editor.name,  editor %></li>
-<% end %>
-</ul>
-
-<% if @film.image.attached? %>
-<!-- @film.image.present? will always return true, use attached? to check presence -->
-  <p>
-    <%= image_tag @film.image %>
-  </p>
-<% end %>
 
 
+
+<div class="row">
   
-<% @film.sections.map do | section | %>
-  
-    <div class="row mb-2">
-
-      <div class="col-6">
+<% @film.sections.order(:id).map do | section | %>
+      <div class="col-sm-6 mb-2">
         <%= render partial: "shared/film_section", object: section %>
       </div>
 
-      <div class="col-6">
+      <div class="col-sm-6 mb-2">
         <%= render partial: "shared/section_info", object: section %>
       </div>
-    </div>
-  
 <% end  %>
 
-<!-- Modal -->
+</div>
+
+
 <%= render partial: "shared/modal_carousel", object: @film.sections %>
-<!-- modal -->
 
 </div>
 
