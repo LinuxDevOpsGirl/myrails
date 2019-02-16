@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
     require 'net/http'
     require 'json'
     
+    filter_resource_access
 
     helper_method :current_user_session, :current_user, :get_thumbnail, :get_autoplay_url
 

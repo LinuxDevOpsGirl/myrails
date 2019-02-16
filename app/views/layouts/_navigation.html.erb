@@ -9,6 +9,13 @@
     <ul class="navbar-nav mr-auto">
       <%= render 'layouts/navigation_links' %>
     </ul>
+    <div class="mr-sm-0">
+      <% if current_user %>
+        <%= current_user.username %>&nbsp;|&nbsp;<%= link_to "Logout", logout_path %>
+      <% else %>
+        <%= link_to "Login", login_path %>&nbsp;|&nbsp;<%= link_to "Register", new_user_path %>
+      <% end %>
+    </div>
     
   </div>
 </nav>

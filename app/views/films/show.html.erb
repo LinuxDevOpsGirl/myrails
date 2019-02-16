@@ -21,20 +21,23 @@
             
           </div>
         
-        
-        <div class="ml-2 pl-4"><%= "Editor".pluralize(@film.people_editors.count) %></div>
-        <ul class="list-unstyled ml-2 pl-4">
-        <% @film.people_editors.each do |editor| %>
-                <li><%= link_to editor.name,  editor %></li>
+        <% unless @film.people_editors.empty? %>
+          <div class="ml-2 pl-4"><%= "Editor".pluralize(@film.people_editors.count) %></div>
+          <ul class="list-unstyled ml-2 pl-4">
+          <% @film.people_editors.each do |editor| %>
+                  <li><%= link_to editor.name,  editor %></li>
+          <% end %>
+          </ul>
         <% end %>
-        </ul>
 
-        <div class="ml-2 pl-4"><%= "Filmer".pluralize(@film.people_filmers.count) %></div>
-        <ul class="list-unstyled ml-2 pl-4">
-        <% @film.people_filmers.each do |filmer| %>
-                <li><%= link_to filmer.name,  filmer %></li>
+        <% unless @film.people_filmers.empty? %>
+          <div class="ml-2 pl-4"><%= "Filmer".pluralize(@film.people_filmers.count) %></div>
+          <ul class="list-unstyled ml-2 pl-4">
+          <% @film.people_filmers.each do |filmer| %>
+                  <li><%= link_to filmer.name,  filmer %></li>
+          <% end %>
+          </ul>
         <% end %>
-        </ul>
 
         
 
@@ -65,11 +68,11 @@
 <div class="row">
   
 <% @film.sections.order(:id).map do | section | %>
-      <div class="col-sm-6 mb-2">
+      <div class="col-sm-6 mb-4">
         <%= render partial: "shared/film_section", object: section %>
       </div>
 
-      <div class="col-sm-6 mb-2">
+      <div class="col-sm-6 mb-4">
         <%= render partial: "shared/section_info", object: section %>
       </div>
 <% end  %>

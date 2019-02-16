@@ -1,7 +1,7 @@
 
 <div class="video-btn" data-toggle="modal" data-src="<%= get_autoplay_url(film_section.url) %>" 
               data-target="#myModal" data-video-fullscreen="1" data-section-name="<%= film_section.film.name %>&nbsp;(<%= film_section.name %>)">
-    <div class="img-wrapper">
+    <div class="img-wrapper ml-4 pl-4"">
     <%= thumb_image_tag(get_thumbnail(film_section.url)) %>
         <div class="img-overlay">
             <div class=""><%= image_tag('playbutton.png') %></div>
