@@ -8,6 +8,31 @@ a {
   text-decoration: none !important;
   color: black;
 }
+
+td a {
+  color: white !important;
+}
+
+li a {
+  color: white !important;
+}
+
+a.navbar-brand {
+  color: white !important;
+}
+
+a.nav-link  {
+  color: white !important;
+}
+
+a.nav-link.active {
+  color: black !important;
+}
+
+#az > div > a {
+  color: white !important;
+}
+
 // make all images responsive by default
 img {
     @extend .img-fluid;
@@ -136,3 +161,35 @@ a.carousel-control-next {
   height: 40%;
 }
 
+// body, html {
+//   height: 100%;
+// }
+// .bg {
+//   /* The image used */  
+//   background-image: url("/assets/background_dvd.png");
+
+//   /* Full height */
+//   height: 50%;
+
+//   /* Center and scale the image nicely */
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   background-size: cover;
+// }
+
+h1.display-4 {
+  color: black;
+}
+
+.lead {
+  color: black;
+}
+
+body { 
+  background: url("/assets/background_dvd.png") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: white;
+}
